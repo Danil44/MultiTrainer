@@ -9,7 +9,7 @@ let isPlaying = false;
 
 const expressionField = document.getElementById("js-expression");
 const answerForm = document.getElementById("js-answer-form");
-
+const sectionGame = document.getElementsByClassName("game")[0];
 let expression: string = "";
 
 answerForm!.addEventListener("submit", handleSubmitAnswer);
@@ -32,6 +32,7 @@ const handleTimer = (time: string) => {
 };
 
 function initModal({ text }: { text: string }) {
+  sectionGame.hidden = true;
   const modal = new Modal({
     container: "body",
     onClose: () => startGame(),
@@ -55,7 +56,7 @@ function completeGame() {
 
 function startGame() {
   isPlaying = true;
-
+  sectionGame.hidden = false;
   score.reset();
   showScore(score.score);
 

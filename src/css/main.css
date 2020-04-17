@@ -1,0 +1,135 @@
+@import "./reset.css";
+@import "./fonts.css";
+:root {
+  --main-dark: #1a1a1a;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.correct {
+  color: #4bb543;
+}
+.fail {
+  color: #ff0022;
+}
+
+body {
+  font-size: 16px;
+  min-height: 100vh;
+  background-color: #ebf1f0;
+  color: var(--main-dark);
+  font-family: "Roboto";
+  overflow-x: hidden;
+}
+@media (max-width: 768px) {
+  body {
+    font-size: 12px;
+  }
+}
+header {
+  padding: 2.125em 30px 0;
+  margin-bottom: 5em;
+}
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 80%;
+}
+footer {
+  text-align: center;
+  width: 100%;
+  bottom: 30px;
+  font-size: 18px;
+}
+footer a {
+  color: var(--main-dark);
+}
+
+.game {
+  margin-bottom: 5em;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+form > input {
+  border: none;
+  background-color: transparent;
+  padding: 12px 8px;
+  border-bottom: 2px solid var(--main-dark);
+  font-size: 2.5em;
+  text-align: center;
+  width: 150px;
+  font-weight: 600;
+  margin-bottom: 50px;
+}
+form > input.correct {
+  border-color: #4bb543;
+}
+form > input.fail {
+  border-color: #ff0022;
+}
+form > button {
+  font-size: 1.875em;
+  background-color: transparent;
+  border: 2px solid;
+  width: 100px;
+  padding: 12px 0;
+}
+form > input::placeholder {
+  font-weight: 400;
+  color: rgb(189, 189, 189);
+}
+h2 {
+  font-size: 5em;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 50px;
+  font-weight: 600;
+}
+h2.correct {
+  color: #4bb543;
+}
+h2.fail {
+  color: #ff0022;
+}
+
+.timer {
+  margin-bottom: 5em;
+}
+.timer span {
+  font-size: 2.7em;
+  font-weight: 300;
+}
+
+.score {
+  text-align: center;
+}
+.score span {
+  font-size: 2.7em;
+  font-weight: 500;
+}
+.score h3 {
+  font-size: 2.7em;
+  font-weight: 300;
+  margin-bottom: 10px;
+}
+@media (min-width: 768px) {
+  .score {
+    position: absolute;
+    left: 30px;
+  }
+  footer {
+    position: absolute;
+  }
+}

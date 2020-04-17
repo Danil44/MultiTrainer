@@ -28,7 +28,7 @@ body {
   font-family: "Roboto";
   overflow-x: hidden;
 }
-@media (max-width: 768px) {
+@media (max-width: 1460px) {
   body {
     font-size: 12px;
   }

@@ -32,4 +32,8 @@ export default class GameModal {
 
     return fragment;
   }
+
+  private generateNumbersColumns() {
+    const fragment = new DocumentFragment();
+  }
 }

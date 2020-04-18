@@ -339,6 +339,10 @@ function () {
     return fragment;
   };
 
+  GameModal.prototype.generateNumbersColumns = function () {
+    var fragment = new DocumentFragment();
+  };
+
   return GameModal;
 }();
 
@@ -376,7 +380,7 @@ answerForm.addEventListener("submit", handleSubmitAnswer);
 
 var initTimer = function initTimer() {
   new Timer_1.default({
-    duration: 120,
+    duration: 60,
     onCount: function onCount(time) {
       return handleTimer(time);
     },
@@ -536,7 +540,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65106" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52659" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

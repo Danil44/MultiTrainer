@@ -18,7 +18,7 @@ answerForm!.addEventListener("submit", handleSubmitAnswer);
 
 const initTimer = () => {
   new Timer({
-    duration: 5,
+    duration: 60,
     onCount: (time) => handleTimer(time),
     onComplete: () => completeGame(),
   }).start();

@@ -123,13 +123,12 @@ function handleSubmitAnswer(this: HTMLFormElement, e: Event) {
 
   if (+inputAnswer.value === correctAnswer) {
     setSuccessStyles();
+    score.increment();
 
     setTimeout(() => {
       resetInput(inputAnswer);
       resetStyles();
       setNewExpression();
-
-      score.increment();
     }, 500);
   } else {
     setFailStyles();

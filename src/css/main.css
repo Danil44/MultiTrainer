@@ -2,6 +2,12 @@
 @import "./fonts.css";
 :root {
   --main-dark: #1a1a1a;
+  --main-green: #4bb543;
+}
+
+*,
+html {
+  transition: 0.1s linear;
 }
 
 input::-webkit-outer-spin-button,
@@ -14,7 +20,7 @@ input[type="number"] {
 }
 
 .correct {
-  color: #4bb543;
+  color: var(--main-green);
 }
 .fail {
   color: #ff0022;

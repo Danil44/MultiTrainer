@@ -25,8 +25,41 @@
   font-size: 2.1em;
   text-transform: uppercase;
 }
+.modal-container > button:hover {
+  border-color: var(--main-green);
+  background-color: var(--main-green);
+  color: #fff;
+  box-shadow: 0 0 6px var(--main-green);
+}
 .modal-container h2 {
-  margin-bottom: 120px;
+  margin-bottom: 80px;
+}
+
+.modal-container ul {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 80px;
+}
+.modal-container ul li {
+  margin-right: 2px;
+  margin-bottom: 2px;
+}
+.modal-container ul button.active {
+  border-color: var(--main-green);
+  background-color: var(--main-green);
+  color: #fff;
+  box-shadow: 0 0 6px var(--main-green);
+}
+.modal-container ul li button {
+  font-size: 1.6em;
+}
+
+.modal-container p {
+  font-size: 1.5em;
+  text-align: center;
+  margin-bottom: 20px;
 }
 
 

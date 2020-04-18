@@ -117,45 +117,42 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"js/lib/multiplicationsArr.ts":[function(require,module,exports) {
+})({"js/models/Trainer.ts":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = ["2 * 1", "2 * 2", "2 * 3", "2 * 4", "2 * 5", "2 * 6", "2 * 7", "2 * 8", "2 * 9", "2 * 10", "2 * 11", "2 * 12", "3 * 1", "3 * 2", "3 * 3", "3 * 4", "3 * 5", "3 * 6", "3 * 7", "3 * 8", "3 * 9", "3 * 10", "3 * 11", "3 * 12", "4 * 1", "4 * 2", "4 * 3", "4 * 4", "4 * 5", "4 * 6", "4 * 7", "4 * 8", "4 * 9", "4 * 10", "4 * 11", "4 * 12", "5 * 1", "5 * 2", "5 * 3", "5 * 4", "5 * 5", "5 * 6", "5 * 7", "5 * 8", "5 * 9", "5 * 10", "5 * 11", "5 * 12", "6 * 1", "6 * 2", "6 * 3", "6 * 4", "6 * 5", "6 * 6", "6 * 7", "6 * 8", "6 * 9", "6 * 10", "6 * 11", "6 * 12", "7 * 1", "7 * 2", "7 * 3", "7 * 4", "7 * 5", "7 * 6", "7 * 7", "7 * 8", "7 * 9", "7 * 10", "7 * 11", "7 * 12", "8 * 1", "8 * 2", "8 * 3", "8 * 4", "8 * 5", "8 * 6", "8 * 7", "8 * 8", "8 * 9", "8 * 10", "8 * 11", "8 * 12", "9 * 1", "9 * 2", "9 * 3", "9 * 4", "9 * 5", "9 * 6", "9 * 7", "9 * 8", "9 * 9", "9 * 10", "9 * 11", "9 * 12", "10 * 1", "10 * 2", "10 * 3", "10 * 4", "10 * 5", "10 * 6", "10 * 7", "10 * 8", "10 * 9", "10 * 10", "10 * 11", "10 * 12", "11 * 1", "11 * 2", "11 * 3", "11 * 4", "11 * 5", "11 * 6", "11 * 7", "11 * 8", "11 * 9", "11 * 10", "11 * 11", "11 * 12", "12 * 1", "12 * 2", "12 * 3", "12 * 4", "12 * 5", "12 * 6", "12 * 7", "12 * 8", "12 * 9", "12 * 10", "12 * 11", "12 * 12", "0 * 1", "0 * 2", "0 * 3", "0 * 4", "0 * 5", "0 * 6", "0 * 7", "0 * 8", "0 * 9", "0 * 10", "0 * 11", "0 * 12", "1 * 1", "1 * 2", "1 * 3", "1 * 4", "1 * 5", "1 * 6", "1 * 7", "1 * 8", "1 * 9", "1 * 10", "1 * 11", "1 * 12"];
-},{}],"js/models/Trainer.ts":[function(require,module,exports) {
-"use strict";
-
-var __importDefault = this && this.__importDefault || function (mod) {
-  return mod && mod.__esModule ? mod : {
-    "default": mod
-  };
-};
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var multiplicationsArr_1 = __importDefault(require("../lib/multiplicationsArr"));
+var minValue = 0;
+var maxValue = 12;
 
 var Trainer =
 /** @class */
 function () {
-  function Trainer() {}
+  function Trainer() {
+    this.selectedOperand = null;
+  }
 
-  Object.defineProperty(Trainer, "randomExpression", {
-    get: function get() {
-      return multiplicationsArr_1.default[Math.ceil(Math.random() * multiplicationsArr_1.default.length)];
+  Object.defineProperty(Trainer.prototype, "firstOperand", {
+    set: function set(operand) {
+      this.selectedOperand = operand;
     },
     enumerable: true,
     configurable: true
   });
+
+  Trainer.prototype.getRandomExpression = function () {
+    var _firstOperand = this.selectedOperand ? this.selectedOperand : minValue + Math.random() * (maxValue - minValue - minValue + 1);
+
+    var secondOperand = minValue + Math.random() * (maxValue - minValue - minValue + 1);
+    return Math.floor(_firstOperand) + " * " + Math.floor(secondOperand);
+  };
+
   return Trainer;
 }();
 
 exports.default = Trainer;
-},{"../lib/multiplicationsArr":"js/lib/multiplicationsArr.ts"}],"js/models/Calculator.ts":[function(require,module,exports) {
+},{}],"js/models/Calculator.ts":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -321,26 +318,56 @@ function () {
   function GameModal(_a) {
     var text = _a.text,
         buttonText = _a.buttonText,
-        onClose = _a.onClose;
+        onClose = _a.onClose,
+        onOperandChoose = _a.onOperandChoose;
     this.text = text;
     this.buttonText = buttonText;
     this.onClose = onClose;
+    this.onOperandChoose = onOperandChoose;
   }
 
   GameModal.prototype.generate = function () {
     var textElement = document.createElement("h2");
     var button = document.createElement("button");
     var fragment = new DocumentFragment();
+    var choosableList = this.generateChoosableList();
     textElement.textContent = this.text;
     button.textContent = this.buttonText;
-    fragment.appendChild(textElement);
-    fragment.appendChild(button);
     button.addEventListener("click", this.onClose);
+    fragment.appendChild(textElement);
+    fragment.appendChild(choosableList);
+    fragment.appendChild(button);
     return fragment;
+  };
+
+  GameModal.prototype.generateChoosableList = function () {
+    var operandsListContainer = document.createElement("div");
+    var operandsList = document.createElement("ul");
+    var chooseTextElement = document.createElement("p");
+    operandsList.id = "js-operands-list";
+    chooseTextElement.textContent = "Choose one of number's column if you want: ";
+    operandsList.appendChild(chooseTextElement);
+    operandsList.appendChild(this.generateNumbersColumns());
+    operandsList.addEventListener("click", this.onOperandChoose);
+    operandsListContainer.appendChild(chooseTextElement);
+    operandsListContainer.appendChild(operandsList);
+    operandsListContainer.classList.add("choosable-operands");
+    return operandsListContainer;
   };
 
   GameModal.prototype.generateNumbersColumns = function () {
     var fragment = new DocumentFragment();
+
+    for (var i = 1; i < 12; i++) {
+      var col = document.createElement("li");
+      var button = document.createElement("button");
+      button.setAttribute("data-operand", i.toString());
+      button.textContent = i.toString();
+      col.appendChild(button);
+      fragment.appendChild(col);
+    }
+
+    return fragment;
   };
 
   return GameModal;
@@ -375,12 +402,13 @@ var GameModal_1 = __importDefault(require("./models/GameModal"));
 var isPlaying = false;
 var expressionField = document.getElementById("js-expression");
 var answerForm = document.getElementById("js-answer-form");
+var trainer = new Trainer_1.default();
 var expression = "";
 answerForm.addEventListener("submit", handleSubmitAnswer);
 
 var initTimer = function initTimer() {
   new Timer_1.default({
-    duration: 60,
+    duration: 5,
     onCount: function onCount(time) {
       return handleTimer(time);
     },
@@ -410,14 +438,45 @@ function initModal(_a) {
     buttonText: "Start",
     onClose: function onClose() {
       return modal.close();
+    },
+    onOperandChoose: function onOperandChoose(e) {
+      return handleSelectFirstOperand(e);
     }
   }).generate();
   modal.generete(startModal);
 }
 
+function handleSelectFirstOperand(e) {
+  var _a;
+
+  e.preventDefault();
+  if (((_a = e.target) === null || _a === void 0 ? void 0 : _a.nodeName) !== "BUTTON") return;
+  var selectedOperand = e.target;
+  trainer.firstOperand = +selectedOperand.getAttribute("data-operand");
+
+  if (selectedOperand.classList.contains("active")) {
+    unsetOperand();
+  } else {
+    setActiveOperand();
+  }
+
+  function setActiveOperand() {
+    var _a;
+
+    (_a = document.querySelector(".modal-container button.active")) === null || _a === void 0 ? void 0 : _a.classList.remove("active");
+    selectedOperand.classList.add("active");
+  }
+
+  function unsetOperand() {
+    trainer.firstOperand = null;
+    selectedOperand.classList.remove("active");
+  }
+}
+
 function completeGame() {
   if (score.score > Score_1.default.bestScore) score.setBestScore();
   showBestScore();
+  trainer.firstOperand = null;
   isPlaying = false;
   initModal({
     text: "Your score is " + score.score
@@ -428,7 +487,7 @@ function startGame() {
   isPlaying = true;
   score.reset();
   showScore(score.score);
-  expression = Trainer_1.default.randomExpression;
+  expression = trainer.getRandomExpression();
   expressionField.textContent = expression;
   initTimer();
 }
@@ -480,7 +539,7 @@ function handleSubmitAnswer(e) {
 }
 
 function setNewExpression() {
-  expression = Trainer_1.default.randomExpression;
+  expression = trainer.getRandomExpression();
   expressionField.textContent = expression;
 }
 
@@ -540,7 +599,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52659" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52905" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

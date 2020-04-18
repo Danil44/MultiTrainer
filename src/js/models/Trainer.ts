@@ -1,14 +1,22 @@
-import multiplicationsArr from "../lib/multiplicationsArr";
-
-const minValue = 0
-const maxValue = 12
+const minValue = 0;
+const maxValue = 12;
 
 export default class Trainer {
-  constructor() {}
+  selectedOperand: number | null;
+  constructor() {
+    this.selectedOperand = null;
+  }
+  set firstOperand(operand: number | null) {
+    this.selectedOperand = operand;
+  }
 
-  static get randomExpression(): string {
-    let firstOperand = minValue + Math.random() * (maxValue - minValue - minValue + 1)
-    let secondOperand = minValue + Math.random() * (maxValue - minValue - minValue + 1)
-    return `${Math.floor(firstOperand)} * ${Math.floor(secondOperand)}`
+  getRandomExpression(): string {
+    let _firstOperand = this.selectedOperand
+      ? this.selectedOperand
+      : minValue + Math.random() * (maxValue - minValue - minValue + 1);
+
+    let secondOperand =
+      minValue + Math.random() * (maxValue - minValue - minValue + 1);
+    return `${Math.floor(_firstOperand)} * ${Math.floor(secondOperand)}`;
   }
 }
